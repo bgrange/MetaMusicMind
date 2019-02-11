@@ -1,0 +1,57 @@
+
+Server.hs:37:56:
+    Could not deduce (Monoid a) arising from a use of ‘<>’
+    from the context (Read a)
+      bound by the type signature for
+                 oneRound :: Read a => Game a -> IO (Game a)
+      at Server.hs:33:13-45
+    Possible fix:
+      add (Monoid a) to the context of
+        the type signature for oneRound :: Read a => Game a -> IO (Game a)
+    In the second argument of ‘Game’, namely
+      ‘((composition g) <> ((read newMaterial) :: a))’
+    In the second argument of ‘($)’, namely
+      ‘Game
+         (tail $ players g) ((composition g) <> ((read newMaterial) :: a))’
+    In a stmt of a 'do' block:
+      return
+      $ Game
+          (tail $ players g) ((composition g) <> ((read newMaterial) :: a))
+
+Server.hs:37:61:
+    Could not deduce (Read a1) arising from a use of ‘read’
+    from the context (Read a)
+      bound by the type signature for
+                 oneRound :: Read a => Game a -> IO (Game a)
+      at Server.hs:33:13-45
+    Possible fix:
+      add (Read a1) to the context of an expression type signature: a1
+    In the second argument of ‘(<>)’, namely
+      ‘((read newMaterial) :: a)’
+    In the second argument of ‘Game’, namely
+      ‘((composition g) <> ((read newMaterial) :: a))’
+    In the second argument of ‘($)’, namely
+      ‘Game
+         (tail $ players g) ((composition g) <> ((read newMaterial) :: a))’
+
+Server.hs:46:11:
+    No instance for (Read t0) arising from a use of ‘allRounds’
+    The type variable ‘t0’ is ambiguous
+    Relevant bindings include
+      main :: IO (Game [t0]) (bound at Server.hs:43:1)
+    Note: there are several potential instances:
+      instance Read Network.Socket.AddrInfoFlag
+        -- Defined in ‘Network.Socket’
+      instance Read Network.Socket.NameInfoFlag
+        -- Defined in ‘Network.Socket’
+      instance Read network-2.6.2.1:Network.Socket.Types.Family
+        -- Defined in ‘network-2.6.2.1:Network.Socket.Types’
+      ...plus 40 others
+    In the expression: allRounds
+    In a stmt of a 'do' block:
+      allRounds $ addPlayer emptyGame (Player host port handle)
+    In the expression:
+      do { x <- listenOn (PortNumber pORT_NUMBER);
+           (handle, host, port) <- accept x;
+           putStrLn $ "connected to: " ++ host ++ ":" ++ (show port);
+           allRounds $ addPlayer emptyGame (Player host port handle) }
